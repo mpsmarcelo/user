@@ -7,6 +7,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 @Table
@@ -17,17 +18,21 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(nullable=false, length=100)
+
+    @Size(min=3, max=50)
+    @Column(nullable=false, length=50)
     private String nome;
+
     @Column(nullable=false, length=100)
     private String email;
-    @Column(nullable=false, length=50)
+
+    @Size(min = 6, max = 20)
+    @Column(nullable=false, length=20)
     private String senha;
 
 
-    public User() {
+    public User() {}
 
-    }
     public User(Long id, String nome, String email, String senha) {
         this.id = id;
         this.nome = nome;
