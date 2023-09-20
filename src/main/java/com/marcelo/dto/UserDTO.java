@@ -1,4 +1,8 @@
 package com.marcelo.dto;
 
-public class UserDTO {
+
+import lombok.Data;
+
+@Data
+public class UserDTO{
 }
