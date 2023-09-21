@@ -1,6 +1,4 @@
 package com.marcelo.controller;
-
-
 import com.marcelo.dto.UserDTO;
 import com.marcelo.entity.Usuario;
 import com.marcelo.request.UserRequest;
