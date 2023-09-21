@@ -12,8 +12,8 @@ import lombok.Data;
 
 @Table
 @Data
-@Entity(name = "user")
-public class User {
+@Entity(name = "usuario")
+public class Usuario {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,9 +31,9 @@ public class User {
     private String senha;
 
 
-    public User() {}
+    public Usuario() {}
 
-    public User(Long id, String nome, String email, String senha) {
+    public Usuario(Long id, String nome, String email, String senha) {
         this.id = id;
         this.nome = nome;
         this.email = email;
