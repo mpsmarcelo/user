@@ -1,14 +1,14 @@
 package com.marcelo.controller;
 
 
-import com.marcelo.entity.User;
+import com.marcelo.dto.UserDTO;
+import com.marcelo.entity.Usuario;
+import com.marcelo.request.UserRequest;
 import com.marcelo.service.UserService;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.modelmapper.ModelMapper;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -23,14 +23,26 @@ public class UserController {
     }
 
     @GetMapping
-    List<User> listAll(){}
+    ResponseEntity<List<UserDTO>> listAll(){
+        return ResponseEntity.status(HttpStatus.OK).body(userService.list());
+    }
 
     @PostMapping
-    List<User> create(){}
+    ResponseEntity<List<UserDTO>> create(@RequestBody UserRequest request) {
+        ModelMapper modelMapper = new ModelMapper();
+        List<UserDTO> userDTOS = userService.create(modelMapper.map(request,Usuario.class));
+        return  ResponseEntity.status(HttpStatus.CREATED).body(userDTOS);
+    }
 
-    @DeleteMapping()
-    List<User> delete(){}
+    @DeleteMapping("{id}")
+    ResponseEntity<List<UserDTO>> delete(@PathVariable("id") Long id){
+        return ResponseEntity.status(HttpStatus.OK).body(userService.delete(id));
+    }
 
     @PutMapping
-    List<User> update(){}
+    ResponseEntity<List<UserDTO>> update(@RequestBody UserRequest request){
+        ModelMapper modelMapper = new ModelMapper();
+        List<UserDTO> userDTOS = userService.update(modelMapper.map(request,Usuario.class));
+        return  ResponseEntity.status(HttpStatus.CREATED).body(userDTOS);
+    }
 }
