@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping(value = "/user")
 public class UserController {
 
@@ -28,21 +29,26 @@ public class UserController {
     }
 
     @PostMapping
-    ResponseEntity<List<UserDTO>> create(@RequestBody UserRequest request) {
+    ResponseEntity<UserDTO> create(@RequestBody UserRequest request) {
         ModelMapper modelMapper = new ModelMapper();
-        List<UserDTO> userDTOS = userService.create(modelMapper.map(request,Usuario.class));
-        return  ResponseEntity.status(HttpStatus.CREATED).body(userDTOS);
+        UserDTO userDTO = userService.create(modelMapper.map(request,Usuario.class));
+        return  ResponseEntity.status(HttpStatus.CREATED).body(userDTO);
     }
 
-    @DeleteMapping("{id}")
+    @DeleteMapping("/{id}")
     ResponseEntity<List<UserDTO>> delete(@PathVariable("id") Long id){
         return ResponseEntity.status(HttpStatus.OK).body(userService.delete(id));
     }
 
     @PutMapping
-    ResponseEntity<List<UserDTO>> update(@RequestBody UserRequest request){
+    ResponseEntity<UserDTO> update(@RequestBody UserRequest request){
         ModelMapper modelMapper = new ModelMapper();
-        List<UserDTO> userDTOS = userService.update(modelMapper.map(request,Usuario.class));
-        return  ResponseEntity.status(HttpStatus.CREATED).body(userDTOS);
+        UserDTO userDTO = userService.update(modelMapper.map(request,Usuario.class));
+        return  ResponseEntity.status(HttpStatus.CREATED).body(userDTO);
+    }
+
+    @GetMapping("{id}")
+    ResponseEntity<UserDTO> findById(@PathVariable("id") Long id){
+        return ResponseEntity.status(HttpStatus.OK).body(userService.findById(id));
     }
 }
