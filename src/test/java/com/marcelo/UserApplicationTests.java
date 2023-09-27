@@ -19,7 +19,6 @@ class UserApplicationTests {
 
 	@Test
 	void testCreateUser() {
-		final  ObjectMapper mapper = new ObjectMapper();
 		var user = new Usuario("Marcelo","marcelo@gmail.com","123456");
 		Objects.requireNonNull(webTestClient.post().uri("/user")
 				.bodyValue(user)
