@@ -21,7 +21,6 @@ public class UserService {
         this.repository = repository;
     }
 
-
     public List<UserDTO> list(){
         ModelMapper modelMapper = new ModelMapper();
         return repository.findAll(Sort.by("nome").ascending())
